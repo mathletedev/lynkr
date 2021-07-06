@@ -1,2 +1,3 @@
 # lynkr
-A website for collaboration in school
+
+> A website for collaboration in school
