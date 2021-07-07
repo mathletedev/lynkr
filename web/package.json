@@ -1,22 +1,25 @@
 {
 	"name": "web",
 	"version": "0.1.0",
-	"author": {
-		"name": "mathletedev",
-		"email": "mathletedev@gmail.com"
-	},
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint"
 	},
+	"author": {
+		"name": "mathletedev",
+		"email": "mathletedev@gmail.com"
+	},
+	"license": "Apache-2.0",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/mathletedev/lynkr.git"
 	},
 	"private": true,
 	"dependencies": {
+		"@apollo/client": "^3.3.21",
+		"graphql": "^15.5.1",
 		"next": "11.0.1",
 		"react": "17.0.2",
 		"react-dom": "17.0.2"
