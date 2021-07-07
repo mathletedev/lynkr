@@ -1,0 +1,32 @@
+{
+	"name": "lynkr-server",
+	"version": "1.0.0",
+	"main": "dist/index.js",
+	"scripts": {
+		"watch": "tsc -w",
+		"dev": "PORT=4000 nodemon dist/index.js"
+	},
+	"author": {
+		"name": "mathletedev",
+		"email": "mathletedev@gmail.com"
+	},
+	"license": "Apache-2.0",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/mathletedev/lynkr.git"
+	},
+	"private": true,
+	"dependencies": {
+		"apollo-server-express": "^2.25.2",
+		"express": "^4.17.1",
+		"graphql": "^15.5.1",
+		"reflect-metadata": "^0.1.13",
+		"type-graphql": "^1.1.1"
+	},
+	"devDependencies": {
+		"@types/express": "^4.17.13",
+		"@types/node": "^16.0.1",
+		"nodemon": "^2.0.9",
+		"typescript": "^4.3.5"
+	}
+}
