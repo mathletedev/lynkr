@@ -1,7 +1,7 @@
 import { FC } from "react";
 
 const Home: FC = () => {
-	return <div>Hello World!</div>;
+	return <div className="text-gray-500">Hello World!</div>;
 };
 
 export default Home;
