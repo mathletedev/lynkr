@@ -1,12 +1,13 @@
 import { ApolloServer } from "apollo-server-express";
 import MongoStore from "connect-mongo";
+import cors from "cors";
 import "dotenv-safe/config";
 import express from "express";
 import session from "express-session";
 import { connect } from "mongoose";
 import "reflect-metadata";
 import { buildSchema } from "type-graphql";
-import { __prod__ } from "./lib/constants";
+import { __clientUri__, __prod__ } from "./lib/constants";
 import { Context } from "./lib/types";
 import { HelloResolver } from "./resolvers/hello";
 import { UserResolver } from "./resolvers/user";
@@ -20,6 +21,13 @@ import { UserResolver } from "./resolvers/user";
 	});
 
 	const app = express();
+
+	app.use(
+		cors({
+			origin: __clientUri__,
+			credentials: true
+		})
+	);
 
 	app.use(
 		session({
@@ -45,7 +53,10 @@ import { UserResolver } from "./resolvers/user";
 		context: async ({ req }) => ({ req } as Context)
 	});
 
-	server.applyMiddleware({ app, cors: { credentials: true, origin: true } });
+	server.applyMiddleware({
+		app,
+		cors: { origin: __clientUri__, credentials: true }
+	});
 
 	app.listen(process.env.PORT, () =>
 		console.log(

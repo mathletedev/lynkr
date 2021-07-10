@@ -1,17 +1,25 @@
 import { gql, useQuery } from "@apollo/client";
 import { FC } from "react";
+import Loading from "../components/common/Loading";
 
-const GET_HELLO = gql`
-	query {
-		hello
+const GET_ME = gql`
+	query Me {
+		me {
+			_id
+			name
+		}
 	}
 `;
 
 const Home: FC = () => {
-	const { loading, data } = useQuery(GET_HELLO);
-	if (loading) return <div>Loading...</div>;
+	const { loading, data } = useQuery(GET_ME);
+	if (loading) return <Loading />;
 
-	return <div>{data.hello}</div>;
+	return (
+		<div>
+			{data.me._id} | {data.me.name}
+		</div>
+	);
 };
 
 export default Home;

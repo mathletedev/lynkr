@@ -31,6 +31,8 @@ const Login: FC<Props> = ({ googleClientId }) => {
 		});
 
 		refreshTokenInit(res);
+
+		window.location.reload();
 	};
 
 	return (

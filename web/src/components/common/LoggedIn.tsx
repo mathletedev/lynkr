@@ -1,7 +1,8 @@
 import { gql, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import { FC, Fragment } from "react";
+import React, { FC, Fragment } from "react";
 import { getBasePath } from "../../lib/util";
+import Loading from "./Loading";
 
 const CURRENT_USER = gql`
 	query Me {
@@ -13,11 +14,18 @@ const CURRENT_USER = gql`
 
 const LoggedIn: FC = ({ children }) => {
 	const { loading, data } = useQuery(CURRENT_USER);
-	if (loading) return <div>Loading...</div>;
 
 	const router = useRouter();
-	if (getBasePath(router.pathname) === "login" && data.me) router.push("/");
-	else if (!getBasePath(router.pathname) && !data.me) router.push("/login");
+	if (loading || typeof window === "undefined") return <Loading />;
+
+	if (getBasePath(router.pathname) === "login" && data.me) {
+		router.push("/");
+		return <Loading />;
+	}
+	if (getBasePath(router.pathname) !== "login" && !data.me) {
+		router.push("/login");
+		return <Loading />;
+	}
 
 	return <Fragment>{children}</Fragment>;
 };
