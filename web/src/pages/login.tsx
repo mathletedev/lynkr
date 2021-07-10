@@ -5,8 +5,10 @@ import { GoogleLogin, GoogleLoginResponse } from "react-google-login";
 import { refreshTokenInit } from "../lib/auth";
 
 const LOGIN_MUTATION = gql`
-	mutation Login($token: String) {
-		login(token: $token)
+	mutation Login($token: String!) {
+		login(token: $token) {
+			_id
+		}
 	}
 `;
 
@@ -19,14 +21,14 @@ export const getStaticProps: GetStaticProps<Props> = async () => ({
 });
 
 const Login: FC<Props> = ({ googleClientId }) => {
+	const [login] = useMutation(LOGIN_MUTATION);
+
 	const handleLogin = (res: GoogleLoginResponse) => {
-		const user = useMutation(LOGIN_MUTATION, {
+		login({
 			variables: {
 				token: res.tokenId
 			}
 		});
-
-		console.log(user);
 
 		refreshTokenInit(res);
 	};
