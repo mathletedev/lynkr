@@ -7,9 +7,10 @@ import session from "express-session";
 import { connect } from "mongoose";
 import "reflect-metadata";
 import { buildSchema } from "type-graphql";
-import { __clientUri__, __prod__ } from "./lib/constants";
+import { __clientUri__, __prod__, __serverUri__ } from "./lib/constants";
 import { Context } from "./lib/types";
 import { HelloResolver } from "./resolvers/hello";
+import { RoomResolver } from "./resolvers/room";
 import { UserResolver } from "./resolvers/user";
 
 (async () => {
@@ -24,7 +25,7 @@ import { UserResolver } from "./resolvers/user";
 
 	app.use(
 		cors({
-			origin: __clientUri__,
+			origin: [__clientUri__, __serverUri__],
 			credentials: true
 		})
 	);
@@ -47,7 +48,7 @@ import { UserResolver } from "./resolvers/user";
 
 	const server = new ApolloServer({
 		schema: await buildSchema({
-			resolvers: [HelloResolver, UserResolver],
+			resolvers: [HelloResolver, UserResolver, RoomResolver],
 			validate: false
 		}),
 		context: async ({ req }) => ({ req } as Context)
@@ -55,7 +56,7 @@ import { UserResolver } from "./resolvers/user";
 
 	server.applyMiddleware({
 		app,
-		cors: { origin: __clientUri__, credentials: true }
+		cors: { origin: [__clientUri__, __serverUri__], credentials: true }
 	});
 
 	app.listen(process.env.PORT, () =>

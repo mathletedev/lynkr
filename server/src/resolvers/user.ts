@@ -12,10 +12,10 @@ export class UserResolver {
 
 	@Query(() => User, { nullable: true })
 	public async me(@Ctx() { req }: Context) {
-		if (!req.session.userId) return null;
+		if (!req.session.userId) return;
 
 		const user = await UserModel.findOne({ _id: req.session.userId } as User);
-		if (!user) return null;
+		if (!user) return;
 
 		return user;
 	}
