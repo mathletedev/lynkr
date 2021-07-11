@@ -1,25 +1,15 @@
-import { gql, useQuery } from "@apollo/client";
-import { FC } from "react";
+import { useRouter } from "next/router";
+import { FC, useEffect } from "react";
 import Loading from "../components/common/Loading";
 
-const GET_ME = gql`
-	query Me {
-		me {
-			_id
-			name
-		}
-	}
-`;
-
 const Home: FC = () => {
-	const { loading, data } = useQuery(GET_ME);
-	if (loading) return <Loading />;
+	const router = useRouter();
 
-	return (
-		<div>
-			{data.me._id} | {data.me.name}
-		</div>
-	);
+	useEffect(() => {
+		router.push("/dash");
+	});
+
+	return <Loading />;
 };
 
 export default Home;

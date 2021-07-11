@@ -3,6 +3,7 @@ import { GetStaticProps } from "next";
 import { FC } from "react";
 import { GoogleLogin, GoogleLoginResponse } from "react-google-login";
 import { refreshTokenInit } from "../lib/auth";
+import { __prod__ } from "../lib/constants";
 
 const LOGIN_MUTATION = gql`
 	mutation Login($token: String!) {
@@ -24,6 +25,9 @@ const Login: FC<Props> = ({ googleClientId }) => {
 	const [login] = useMutation(LOGIN_MUTATION);
 
 	const handleLogin = (res: GoogleLoginResponse) => {
+		console.log(res.tokenId);
+		if (!__prod__) console.log(res.tokenId);
+
 		login({
 			variables: {
 				token: res.tokenId

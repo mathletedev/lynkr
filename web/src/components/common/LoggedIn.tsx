@@ -19,7 +19,7 @@ const LoggedIn: FC = ({ children }) => {
 	if (loading || typeof window === "undefined") return <Loading />;
 
 	if (getBasePath(router.pathname) === "login" && data.me) {
-		router.push("/");
+		router.push("/dash");
 		return <Loading />;
 	}
 	if (getBasePath(router.pathname) !== "login" && !data.me) {
